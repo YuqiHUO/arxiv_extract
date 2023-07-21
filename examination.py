@@ -1,18 +1,14 @@
 import pandas as pd
-import io
-from PIL import Image
 
-# Load parquet file
-df = pd.read_parquet('data/extract/arxiv_data.parquet')
+def test_parquet(file_path):
+    # 使用pandas读取parquet文件
+    df = pd.read_parquet(file_path)
 
-# Print the DataFrame's outline
-print(df.head())
+    # 打印文件内容
+    print(df)
 
-# Assume the image is stored in the 0th row and 'content' column
-image_data = df.loc[0, 'content']
+    # 打印文件统计信息
+    print(df.describe())
 
-# Convert binary data to PIL image
-image = Image.open(io.BytesIO(image_data))
-
-# Save the image
-image.save('output_image.jpg')
+if __name__ == "__main__":
+    test_parquet("extract/arxiv_data.parquet")
